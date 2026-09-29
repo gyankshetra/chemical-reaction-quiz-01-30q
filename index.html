@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gyankshetra - Chemistry Quiz (Chemical Reactions Q1-30)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0d1117;
+            color: #c9d1d9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .quiz-container {
+            width: 100%;
+            max-width: 550px;
+            background-color: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+
+        .brand-title {
+            color: #f1e05a;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .quiz-sub-info {
+            font-size: 13px;
+            color: #8b949e;
+            margin-top: 5px;
+        }
+
+        .stats-bar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #21262d;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .stat-green { color: #3fb950; }
+        .stat-red { color: #f85149; }
+
+        .input-group { margin: 20px 0; }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            color: #fff;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #d97706;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn:hover { background-color: #b45309; }
+
+        .btn-secondary {
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            color: #c9d1d9;
+        }
+
+        .btn-secondary:hover { background-color: #30363d; }
+
+        .question-box { display: none; }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #f1e05a;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #30363d;
+            border-radius: 3px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background-color: #f1e05a;
+            transition: width 0.3s;
+        }
+
+        .q-text {
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            color: #f0f6fc;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .q-text:hover { background-color: #21262d; }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option-btn {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background-color: #21262d;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #c9d1d9;
+            cursor: pointer;
+            text-align: left;
+            font-size: 14px;
+            user-select: none;
+        }
+
+        .option-btn:hover { background-color: #30363d; }
+
+        .option-btn.selected {
+            border-color: #f1e05a;
+            background-color: #2d333b;
+            color: #f1e05a;
+            font-weight: bold;
+        }
+
+        .badge {
+            background-color: #30363d;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 12px;
+            color: #c9d1d9;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .score-card { display: none; text-align: center; }
+
+        .final-score {
+            font-size: 36px;
+            color: #f1e05a;
+            margin: 15px 0;
+            font-weight: bold;
+        }
+
+        .grid-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background-color: #21262d;
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .telegram-preview {
+            background-color: #0d1117;
+            border: 1px dashed #30363d;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-align: left;
+            margin-bottom: 15px;
+            white-space: pre-line;
+        }
+
+        .review-section {
+            display: none;
+            margin-top: 20px;
+            text-align: left;
+            border-top: 1px solid #30363d;
+            padding-top: 15px;
+        }
+
+        .review-card {
+            background-color: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 13.5px;
+            line-height: 1.5;
+        }
+
+        .review-card.correct-card { border-left: 5px solid #3fb950; }
+        .review-card.wrong-card { border-left: 5px solid #f85149; }
+
+        .rev-status {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .rev-ans {
+            margin-top: 5px;
+            color: #8b949e;
+        }
+
+        .rev-ans span { color: #f0f6fc; }
+
+        .vvi-box {
+            background-color: #1b232a;
+            border: 1px solid #1f6beb;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            color: #58a6ff;
+            font-size: 12.5px;
+        }
+
+        .vvi-box b { color: #f1e05a; }
+
+        .multiple-ans-box {
+            background-color: #2b2111;
+            border: 1px solid #d97706;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+            color: #f1e05a;
+            font-size: 12.5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div class="header">
+        <div class="brand-title">Gyankshetra</div>
+        <div class="quiz-sub-info">अभ्यास क्विज़ - BPSC TRE 4.0 | विषय-रसायन विज्ञान (रासायनिक अभिक्रियाएँ 1-30Q)</div>
+        <div class="stats-bar">
+            <span class="stat-green">✔ सही: +1.0</span>
+            <span class="stat-red">✖ गलत/छोड़ा: -0.33</span>
+            <span>📋 कुल प्रश्न: 30</span>
+        </div>
+    </div>
+
+    <!-- Registration Screen -->
+    <div id="reg-screen">
+        <h3 style="text-align: center; margin-bottom: 15px;">अभ्यर्थी पंजीकरण (Registration)</h3>
+        <div class="input-group">
+            <label for="username">आपका नाम (Candidate Name):</label>
+            <input type="text" id="username" placeholder="यहाँ अपना नाम लिखें...">
+        </div>
+        <button class="btn" onclick="startQuiz()">► Start Quiz (क्विज़ शुरू करें)</button>
+    </div>
+
+    <!-- Question Screen -->
+    <div id="quiz-screen" class="question-box">
+        <div class="q-header">
+            <span id="q-count">प्रश्न 1/30</span>
+            <span id="timer">⏱ 30:00</span>
+        </div>
+        <div class="progress-bar">
+            <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <div id="q-text" class="q-text" onclick="toggleQuestionSelection()"></div>
+        <div id="options-container" class="options-list"></div>
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" onclick="prevQuestion()">◄ Preview</button>
+            <button class="btn" onclick="nextQuestion()">Next ➔</button>
+        </div>
+    </div>
+
+    <!-- Scorecard Screen -->
+    <div id="score-screen" class="score-card">
+        <h3>क्विज़ परिणाम / Scorecard</h3>
+        <p style="margin-top: 5px; color: #8b949e;">Candidate: <span id="res-name" style="color:#fff;"></span></p>
+        
+        <div class="final-score" id="res-score">0.00</div>
+        
+        <div class="grid-stats">
+            <div class="stat-card">कुल प्रश्न<br><b id="res-total" style="font-size: 18px;">30</b></div>
+            <div class="stat-card" style="color:#3fb950;">✔ सही उत्तर<br><b id="res-correct" style="font-size: 18px;">0</b></div>
+            <div class="stat-card" style="color:#f85149;">✖ गलत उत्तर<br><b id="res-wrong" style="font-size: 18px;">0</b></div>
+            <div class="stat-card" style="color:#f85149;">➖ छोड़े गए (-0.33)<br><b id="res-skipped" style="font-size: 18px;">0</b></div>
+        </div>
+
+        <div class="telegram-preview" id="tg-preview"></div>
+
+        <button class="btn" style="background-color: #0088cc; margin-bottom: 10px;" onclick="shareTelegram()">✈ Telegram पर स्कोर भेजें</button>
+        <button id="btn-review" class="btn btn-secondary" style="margin-bottom: 10px;" onclick="toggleReviewSection()">🔍 प्रश्न एवं उत्तर समीक्षा (1 Page / 1 Detail)</button>
+        <button class="btn" style="background-color: #30363d;" onclick="location.reload()">⟳ पुनः प्रयास करें</button>
+
+        <!-- Dynamic Review Section -->
+        <div id="review-section" class="review-section">
+            <div id="review-card-container"></div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevReviewCard()">◄ पिछला प्रश्न</button>
+                <button class="btn" onclick="nextReviewCard()">अगला प्रश्न ➔</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const questions = [
+        {
+            q: "1. रासायनिक अभिक्रिया में भाग लेने वाले पदार्थों को क्या कहा जाता है?",
+            options: ["उत्पाद (Products)", "अभिकारक (Reactants)", "उत्प्रेरक (Catalysts)", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "अभिकारक (Reactants) आपस में अभिक्रिया करके नए गुणधर्म वाले उत्पाद (Products) बनाते हैं।"
+        },
+        {
+            q: "2. रासायनिक अभिक्रिया के दौरान कौन-कौन से परिवर्तन देखे जा सकते हैं?",
+            options: ["अवस्था में परिवर्तन (State change)", "रंग में परिवर्तन (Color change)", "गैस का निकास या तापमान में परिवर्तन", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["अवस्था में परिवर्तन", "रंग में परिवर्तन", "गैस का निकास या तापमान परिवर्तन"],
+            vviPoint: "किसी भी रासायनिक अभिक्रिया की पहचान इन तीनों परिवर्तनों में से एक या अधिक लक्षणों द्वारा होती है।"
+        },
+        {
+            q: "3. मैग्नीशियम रिबन को हवा में जलाने पर किस रंग की ज्वाला उत्पन्न होती है और क्या बनता है?",
+            options: ["चमकदार सफेद ज्वाला, मैग्नीशियम ऑक्साइड", "नीली ज्वाला, मैग्नीशियम नाइट्राइड", "लाल ज्वाला, मैग्नीशियम कार्बोनेट", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 0,
+            multiDetails: null,
+            vviPoint: "2Mg + O₂ → 2MgO। जलाने से पहले रिबन को रेगमाल (Sandpaper) से रगड़ा जाता है ताकि उस पर जमी ऑक्साइड परत हट सके।"
+        },
+        {
+            q: "4. द्रव्यमान संरक्षण का नियम (Law of Conservation of Mass) क्या बतलाता है?",
+            options: ["द्रव्यमान का निर्माण किया जा सकता है", "द्रव्यमान का विनाश किया जा सकता है", "किसी रासायनिक अभिक्रिया में द्रव्यमान का न तो निर्माण होता है न ही विनाश", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 2,
+            multiDetails: null,
+            vviPoint: "इसी नियम के कारण रासायनिक समीकरणों को संतुलित (Balance) करना अनिवार्य होता है।"
+        },
+        {
+            q: "5. जब दो या दो से अधिक अभिकारक मिलकर एक अकेला उत्पाद बनाते हैं, तो उस अभिक्रिया को क्या कहते हैं?",
+            options: ["अपघटन अभिक्रिया (Decomposition)", "संयोजन अभिक्रिया (Combination)", "विस्थापन अभिक्रिया (Displacement)", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "उदाहरण: C + O₂ → CO₂ तथा CaO + H₂O → Ca(OH)₂ दोनों संयोजन अभिक्रिया के मुख्य उदाहरण हैं।"
+        },
+        {
+            q: "6. बिना बुझा हुआ चूना (CaO) जब जल के साथ अभिक्रिया करता है, तो कौन-सी परिघटनाएँ होती हैं?",
+            options: ["बुझा हुआ चूना [Ca(OH)₂] बनता है", "अत्यधिक मात्रा में ऊष्मा उत्पन्न होती है", "यह एक ऊष्माक्षेपी (Exothermic) अभिक्रिया है", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["बुझा हुआ चूना [Ca(OH)₂] बनता है", "अत्यधिक ऊष्मा उत्पन्न होती है", "यह एक ऊष्माक्षेपी अभिक्रिया है"],
+            vviPoint: "CaO का व्यापारिक नाम 'Quicklime' और Ca(OH)₂ का नाम 'Slaked lime' है।"
+        },
+        {
+            q: "7. दीवारों पर सफेदी करने के 2-3 दिनों बाद चमक किस पदार्थ के बनने के कारण आती है?",
+            options: ["कैल्शियम ऑक्साइड", "कैल्शियम हाइड्रॉक्साइड", "कैल्शियम कार्बोनेट (CaCO₃)", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 2,
+            multiDetails: null,
+            vviPoint: "Ca(OH)₂ हवा में मौजूद CO₂ के साथ धीरे-धीरे अभिक्रिया करके संगमरमर का रासायनिक सूत्र (CaCO₃) बनाता है।"
+        },
+        {
+            q: "8. निम्नलिखित में से कौन-कौन सी प्रक्रियाएँ ऊष्माक्षेपी (Exothermic) अभिक्रिया के उदाहरण हैं?",
+            options: ["श्वसन (Respiration)", "शाक-सब्जियों का विघटित होकर कंपोस्ट बनना", "प्राकृतिक गैस का दहन (Combustion of Natural Gas)", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["श्वसन (Respiration)", "शाक-सब्जियों का कंपोस्ट बनना", "प्राकृतिक गैस (मीथेन) का दहन"],
+            vviPoint: "ऊष्माक्षेपी अभिक्रियाओं में उत्पाद के साथ-साथ ऊर्जा/ऊष्मा का निर्माण भी होता है।"
+        },
+        {
+            q: "9. ग्लूकोज (C₆H₁₂O₆) का कोशिकाओं में ऑक्सीजन से मिलकर ऊर्जा देना किस अभिक्रिया का उदाहरण है?",
+            options: ["ऊष्माक्षेपी अभिक्रिया", "ऊष्माशोषी अभिक्रिया", "अपघटन अभिक्रिया", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 0,
+            multiDetails: null,
+            vviPoint: "C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O + ऊर्जा। इसी कारण श्वसन को ऊष्माक्षेपी अभिक्रिया माना जाता है।"
+        },
+        {
+            q: "10. एकल अभिकर्मक टूटकर दो या अधिक छोटे उत्पादों में विभाजित होता है, तो उसे कहते हैं:",
+            options: ["संयोजन अभिक्रिया", "वियोजन/अपघटन अभिक्रिया (Decomposition)", "विस्थापन अभिक्रिया", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "वियोजन अभिक्रियाएँ तीन प्रकार की होती हैं: ऊष्मीय अपघटन, वैद्युत अपघटन और प्रकाशीय अपघटन।"
+        },
+        {
+            q: "11. फेरस सल्फेट (FeSO₄·7H₂O) के क्रिस्टल को गर्म करने पर क्या-क्या परिवर्तन होते हैं?",
+            options: ["जल के अणु हटने से क्रिस्टल का हरा रंग बदल जाता है", "यह Fe₂O₃ (फेरिक ऑक्साइड) में टूट जाता है", "सल्फर डाइऑक्साइड (SO₂) और SO₃ गैस निकलती है", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["हरा रंग बदलना", "Fe₂O₃ ठोस बनना", "SO₂ एवं SO₃ गैसों का निकलना"],
+            vviPoint: "सल्फर के जलने का विशिष्ट गंध SO₂ और SO₃ गैसों के बनने के कारण होता है।"
+        },
+        {
+            q: "12. लेड नाइट्रेट [Pb(NO₃)₂] के चूर्ण को गर्म करने पर निकलने वाले भूरे रंग के धुएँ की गैस कौन-सी है?",
+            options: ["ऑक्सीजन (O₂)", "नाइट्रोजन डाइऑक्साइड (NO₂)", "नाइट्रस ऑक्साइड (N₂O)", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "2Pb(NO₃)₂ → 2PbO + 4NO₂ + O₂। इसमें NO₂ गैस भूरे रंग का धुआँ उत्पन्न करती है।"
+        },
+        {
+            q: "13. जल के वैद्युत अपघटन (Electrolysis of Water) में कौन-सी गैसें प्राप्त होती हैं?",
+            options: ["एनोड पर ऑक्सीजन (O₂)", "कैथोड पर हाइड्रोजन (H₂)", "आयतन का अनुपात (H₂ : O₂) = 2 : 1", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["एनोड पर ऑक्सीजन (O₂) जमा होना", "कैथोड पर हाइड्रोजन (H₂) जमा होना", "H₂ और O₂ का आयतन अनुपात 2:1 होना"],
+            vviPoint: "जल में H₂O का अनुपात 2:1 होने के कारण कैथोड पर दोगुनी गैस (हाइड्रोजन) एकत्र होती है।"
+        },
+        {
+            q: "14. सिल्वर क्लोराइड (AgCl) को सूर्य के प्रकाश में रखने पर क्या घटित होता है?",
+            options: ["यह धूसर (Gray) रंग का हो जाता है", "सिल्वर (Ag) तथा क्लोरीन (Cl₂) में वियोजित होता है", "यह प्रकाश-रासायनिक अपघटन का उदाहरण है", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["धूसर (Gray) रंग का होना", "Ag और Cl₂ में वियोजित होना", "प्रकाश-रासायनिक (Photolytic) अपघटन होना"],
+            vviPoint: "2AgCl (सफेद) + सूर्य का प्रकाश → 2Ag (धूसर) + Cl₂।"
+        },
+        {
+            q: "15. श्याम-श्वेत (Black & White) फोटोग्राफी में किस रसायन का उपयोग किया जाता है?",
+            options: ["सिल्वर ब्रोमाइड (AgBr)", "सिल्वर क्लोराइड (AgCl)", "सिल्वर नाइट्रेट (AgNO₃)", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["सिल्वर ब्रोमाइड (AgBr)", "सिल्वर क्लोराइड (AgCl)"],
+            vviPoint: "सूर्य के प्रकाश द्वारा वियोजन अभिक्रिया का उपयोग ही ब्लैक एंड व्हाइट फोटोग्राफी में किया जाता है।"
+        },
+        {
+            q: "16. जिन अभिक्रियाओं में ऊर्जा (ऊष्मा, प्रकाश या विद्युत) का अवशोषण होता है, उन्हें क्या कहते हैं?",
+            options: ["ऊष्माक्षेपी अभिक्रिया", "ऊष्माशोषी अभिक्रिया (Endothermic)", "रेडॉक्स अभिक्रिया", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "सभी अपघटन (Decomposition) अभिक्रियाएँ प्रायः ऊष्माशोषी (Endothermic) होती हैं।"
+        },
+        {
+            q: "17. कॉपर सल्फेट (CuSO₄) के नीले विलयन में लोहे की कील डालने पर क्या परिवर्तन होता है?",
+            options: ["नीला रंग बदलकर हल्का हरा (FeSO₄ बनने के कारण) हो जाता है", "कील पर भूरे रंग की तांबे की परत चढ़ जाती है", "यह एक विस्थापन अभिक्रिया (Displacement) है", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["विलयन का रंग हल्का हरा होना", "कील पर तांबे (Copper) का जमना", "विस्थापन अभिक्रिया होना"],
+            vviPoint: "Fe + CuSO₄ → FeSO₄ + Cu। लोहा (Fe) कॉपर (Cu) से अधिक क्रियाशील धातु है।"
+        },
+        {
+            q: "18. जब अधिक क्रियाशील तत्व कम क्रियाशील तत्व को उसके यौगिक से विस्थापित कर देता है, तो उसे कहते हैं:",
+            options: ["द्विविस्थापन अभिक्रिया", "विस्थापन अभिक्रिया (Displacement)", "संयोजन अभिक्रिया", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "Zn + CuSO₄ → ZnSO₄ + Cu एवं Pb + CuCl₂ → PbCl₂ + Cu भी विस्थापन के उदाहरण हैं।"
+        },
+        {
+            q: "19. सोडियम सल्फेट (Na₂SO₄) और बेरियम क्लोराइड (BaCl₂) की अभिक्रिया के संबंध में क्या सत्य है?",
+            options: ["बेरियम सल्फेट (BaSO₄) का सफेद अवक्षेप (Precipitate) बनता है", "यह एक द्विविस्थापन (Double Displacement) अभिक्रिया है", "अवक्षेपण (Precipitation) अभिक्रिया का उदाहरण है", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["BaSO₄ का सफेद अवक्षेप बनना", "द्विविस्थापन अभिक्रिया होना", "अवक्षेपण अभिक्रिया होना"],
+            vviPoint: "जिस अभिक्रिया में अघुलनशील अवक्षेप (Precipitate) बनता है, उसे अवक्षेपण अभिक्रिया भी कहते हैं।"
+        },
+        {
+            q: "20. जिन अभिक्रियाओं में अभिकारकों के बीच आयनों का आदान-प्रदान (Exchange of ions) होता है, उन्हें कहते हैं:",
+            options: ["विस्थापन अभिक्रिया", "द्विविस्थापन अभिक्रिया", "अपघटन अभिक्रिया", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "Na₂SO₄ + BaCl₂ → BaSO₄↓ + 2NaCl (यहाँ Ba²⁺ और SO₄²⁻ आयन आपस में बदलते हैं)।"
+        },
+        {
+            q: "21. किसी रासायनिक अभिक्रिया में 'ऑक्सीकरण / उपचयन' (Oxidation) का क्या अर्थ है?",
+            options: ["ऑक्सीजन में वृद्धि होना", "हाइड्रोजन का ह्रास (कमी) होना", "इलेक्ट्रॉन का त्याग होना", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["ऑक्सीजन का जुड़ना (वृद्धि)", "हाइड्रोजन का निकलना (कमी)", "इलेक्ट्रॉन का त्याग"],
+            vviPoint: "तांबे के चूर्ण को गर्म करने पर उस पर कॉपर ऑक्साइड (CuO) की काली परत जमना ऑक्सीकरण का उदाहरण है।"
+        },
+        {
+            q: "22. किसी रासायनिक अभिक्रिया में 'अपचयन' (Reduction) का क्या अर्थ है?",
+            options: ["ऑक्सीजन का ह्रास (कमी) होना", "हाइड्रोजन की वृद्धि होना", "इलेक्ट्रॉन ग्रहण करना", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["ऑक्सीजन की कमी होना", "हाइड्रोजन की वृद्धि होना", "इलेक्ट्रॉन ग्रहण करना"],
+            vviPoint: "अपचयन (Reduction) हमेशा उपचयन (Oxidation) के विपरीत दिशा में काम करता है।"
+        },
+        {
+            q: "23. ऐसी अभिक्रिया जिसमें एक कारक का ऑक्सीकरण तथा दूसरे का अपचयन एक साथ होता है, कहलाती है:",
+            options: ["रेडॉक्स अभिक्रिया (Redox Reaction)", "उपचयन-अपचयन अभिक्रिया", "उदासीनीकरण अभिक्रिया", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["रेडॉक्स अभिक्रिया (Redox Reaction)", "उपचयन-अपचयन अभिक्रिया"],
+            vviPoint: "Redox शब्द 'Reduction' के Red और 'Oxidation' के Ox से मिलकर बना है।"
+        },
+        {
+            q: "24. CuO + H₂ → Cu + H₂O में किस पदार्थ का उपचयन (Oxidation) और किसका अपचयन (Reduction) हो रहा है?",
+            options: ["H₂ का H₂O में उपचयन", "CuO का Cu में अपचयन", "Cu का CuO में अपचयन", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["H₂ का H₂O में उपचयन (ऑक्सीजन का जुड़ना)", "CuO का Cu में अपचयन (ऑक्सीजन का हटना)"],
+            vviPoint: "यहाँ H₂ एक अपचायक (Reducing Agent) की तरह और CuO एक ऑक्सीकारक (Oxidizing Agent) की तरह कार्य करता है।"
+        },
+        {
+            q: "25. जब कोई धातु अम्ल, नमी या वायु के संपर्क में आती है और उसकी ऊपरी परत नष्ट होने लगती है, तो इसे कहते हैं:",
+            options: ["विकृतगंधिता (Rancidity)", "संक्षारण (Corrosion)", "अपचयन", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "संक्षारण के कारण लोहे पर लाल-भूरे रंग की जंग (Rusting) लगती है, जिसका सूत्र Fe₂O₃·xH₂O होता है।"
+        },
+        {
+            q: "26. निम्नलिखित में से संक्षारण (Corrosion) के कौन-कौन से प्रमुख उदाहरण हैं?",
+            options: ["लोहे पर भूरी परत जमना (जंग लगना)", "चांदी पर काली परत (Silver Sulfide) चढ़ना", "तांबे (Copper) पर हरे रंग की परत चढ़ना", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["लोहे पर भूरा जंग", "चांदी पर काली परत", "तांबे पर हरे रंग की बेसिक कॉपर कार्बोनेट की परत"],
+            vviPoint: "तांबे का हरा रंग हवा में मौजूद नम CO₂ और O₂ के साथ अभिक्रिया से बेसिक कॉपर कार्बोनेट बनने के कारण होता है।"
+        },
+        {
+            q: "27. वसायुक्त या तैलीय खाद्य पदार्थों का लंबे समय बाद स्वाद और गंध बदल जाना क्या कहलाता है?",
+            options: ["संक्षारण", "विकृतगंधिता (Rancidity)", "किण्वन (Fermentation)", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "तैल एवं वसा का वायु की ऑक्सीजन द्वारा उपचयन (Oxidation) होने से ही उनमें दुर्गंध आने लगती है।"
+        },
+        {
+            q: "28. चिप्स और नमकीन की थैली में उपचयन को रोकने तथा विकृतगंधिता से बचाने के लिए क्या उपाय किए जाते हैं?",
+            options: ["ऑक्सीजन हटाकर नाइट्रोजन (N₂) गैस भरी जाती है", "एंटीऑक्सीडेंट (प्रति-ऑक्सीकारक) मिलाए जाते हैं", "वायुरोधी डिब्बों में रखा जाता है", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 3,
+            multiDetails: ["नाइट्रोजन (N₂) अक्रिय गैस भरना", "एंटीऑक्सीडेंट मिलाना", "वायुरोधी डिब्बों (Air-tight container) का उपयोग"],
+            vviPoint: "नाइट्रोजन एक कम सक्रिय अक्रिय गैस है जो चिप्स को ऑक्सीकृत होने से बचाती है।"
+        },
+        {
+            q: "29. लोहे की वस्तुओं को जंग (Rust) से बचाने के लिए उन पर जस्ते (Zinc) की परत चढ़ाना क्या कहलाता है?",
+            options: ["गैल्वनीकरण / यशदलेपन (Galvanization)", "विद्युत लेपन", "एनोडीकरण", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 0,
+            multiDetails: null,
+            vviPoint: "जिंक लोहे से अधिक क्रियाशील होने के कारण खुद संक्षारित हो जाता है परंतु अंदरूनी लोहे की सुरक्षा करता है।"
+        },
+        {
+            q: "30. एल्युमिनियम पर मोटी ऑक्साइड की परत बनाने की प्रक्रिया को क्या कहते हैं जो इसे संक्षारण से बचाती है?",
+            options: ["गैल्वनीकरण", "एनोडीकरण (Anodizing)", "मिश्रधातु बनाना", "उपर्युक्त में से एक से अधिक", "उपर्युक्त में से कोई नहीं"],
+            ans: 1,
+            multiDetails: null,
+            vviPoint: "एनोडीकरण में एल्युमिनियम वस्तु को एनोड बनाकर तनु सल्फ्यूरिक अम्ल (H₂SO₄) के साथ विद्युत अपघटन किया जाता है।"
+        }
+    ];
+
+    let currentQ = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+    let username = "";
+    let timeLeft = 1800; // 30 min
+    let timerInterval;
+
+    let currentReviewIdx = 0;
+
+    function startQuiz() {
+        const nameInput = document.getElementById("username").value.trim();
+        if(!nameInput) {
+            alert("कृपया अपना नाम दर्ज करें!");
+            return;
+        }
+        username = nameInput;
+        document.getElementById("reg-screen").style.display = "none";
+        document.getElementById("quiz-screen").style.display = "block";
+        loadQuestion();
+        startTimer();
+    }
+
+    function startTimer() {
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            let m = Math.floor(timeLeft / 60);
+            let s = timeLeft % 60;
+            document.getElementById("timer").innerText = `⏱ ${m < 10 ? '0':''}${m}:${s < 10 ? '0':''}${s}`;
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                finishQuiz();
+            }
+        }, 1000);
+    }
+
+    function loadQuestion() {
+        const q = questions[currentQ];
+        document.getElementById("q-count").innerText = `प्रश्न ${currentQ + 1}/30`;
+        document.getElementById("progress-fill").style.width = `${((currentQ + 1)/questions.length)*100}%`;
+        document.getElementById("q-text").innerText = q.q;
+
+        const optsContainer = document.getElementById("options-container");
+        optsContainer.innerHTML = "";
+
+        const labels = ["A", "B", "C", "D", "E"];
+        q.options.forEach((opt, idx) => {
+            const btn = document.createElement("div");
+            btn.className = `option-btn ${userAnswers[currentQ] === idx ? 'selected' : ''}`;
+            btn.innerHTML = `<span>${opt}</span><span class="badge">${labels[idx]}</span>`;
+            btn.onclick = () => selectOption(idx);
+            optsContainer.appendChild(btn);
+        });
+    }
+
+    function selectOption(idx) {
+        if (userAnswers[currentQ] === idx) {
+            userAnswers[currentQ] = null;
+        } else {
+            userAnswers[currentQ] = idx;
+        }
+        loadQuestion();
+    }
+
+    function toggleQuestionSelection() {
+        if (userAnswers[currentQ] !== null) {
+            userAnswers[currentQ] = null;
+            loadQuestion();
+        }
+    }
+
+    function nextQuestion() {
+        if(currentQ < questions.length - 1) {
+            currentQ++;
+            loadQuestion();
+        } else {
+            finishQuiz();
+        }
+    }
+
+    function prevQuestion() {
+        if(currentQ > 0) {
+            currentQ--;
+            loadQuestion();
+        }
+    }
+
+    function finishQuiz() {
+        clearInterval(timerInterval);
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("score-screen").style.display = "block";
+
+        let correct = 0, wrong = 0, skipped = 0;
+
+        userAnswers.forEach((ans, idx) => {
+            if(ans === null) {
+                skipped++;
+            } else if(ans === questions[idx].ans) {
+                correct++;
+            } else {
+                wrong++;
+            }
+        });
+
+        let totalScore = (correct * 1.0) - (wrong * 0.33) - (skipped * 0.33);
+
+        document.getElementById("res-name").innerText = username;
+        document.getElementById("res-score").innerText = totalScore.toFixed(2);
+        document.getElementById("res-correct").innerText = correct;
+        document.getElementById("res-wrong").innerText = wrong;
+        document.getElementById("res-skipped").innerText = skipped;
+
+        const tgText = `👤 छात्र का नाम: ${username}\n📚 विषय: रसायन विज्ञान - रासायनिक अभिक्रियाएँ (1-30Q)\n📝 कुल प्रश्न: 30\n✅ सही उत्तर: ${correct}\n❌ गलत उत्तर: ${wrong}\n➖ छोड़े गए (Negative): ${skipped}\n🎯 अंतिम अंक: ${totalScore.toFixed(2)}`;
+        
+        document.getElementById("tg-preview").innerText = tgText;
+    }
+
+    function renderSingleReviewCard(idx) {
+        const container = document.getElementById("review-card-container");
+        container.innerHTML = "";
+
+        const q = questions[idx];
+        const userAns = userAnswers[idx];
+        const isCorrect = userAns === q.ans;
+        const isSkipped = userAns === null;
+        const labels = ["A", "B", "C", "D", "E"];
+
+        const card = document.createElement("div");
+        card.className = `review-card ${isCorrect ? 'correct-card' : 'wrong-card'}`;
+
+        let statusText = "";
+        if (isCorrect) {
+            statusText = "<span class='rev-status' style='color:#3fb950;'>✔ सही (Correct)</span>";
+        } else if (isSkipped) {
+            statusText = "<span class='rev-status' style='color:#f85149;'>➖ नहीं चुना (Skipped -0.33)</span>";
+        } else {
+            statusText = "<span class='rev-status' style='color:#f85149;'>✖ गलत (Incorrect -0.33)</span>";
+        }
+
+        const userChoiceText = isSkipped ? "कोई विकल्प नहीं चुना गया" : `${labels[userAns]}. ${q.options[userAns]}`;
+        const correctChoiceText = `${labels[q.ans]}. ${q.options[q.ans]}`;
+
+        let multiBox = "";
+        if (q.ans === 3 && q.multiDetails && q.multiDetails.length > 0) {
+            let listItems = q.multiDetails.map(item => `• ${item}`).join("<br>");
+            multiBox = `
+                <div class="multiple-ans-box">
+                    <b>📌 'उपर्युक्त में से एक से अधिक' में शामिल सही विकल्प:</b><br>
+                    ${listItems}
+                </div>
+            `;
+        }
+
+        let vviBox = `
+            <div class="vvi-box">
+                <b>🔥 BPSC TRE 4.0 VVI Point:</b> ${q.vviPoint}
+            </div>
+        `;
+
+        card.innerHTML = `
+            <div style="display:flex; justify-between; align-items:center; border-bottom:1px solid #21262d; padding-bottom:6px; margin-bottom:10px;">
+                <span>${statusText}</span>
+                <span style="color:#f1e05a; font-weight:bold;">समीक्षा: ${idx + 1} / 30</span>
+            </div>
+            <div style="font-weight:bold; font-size:15px; margin-bottom: 10px; color:#f0f6fc;">${q.q}</div>
+            <div class="rev-ans">आपका उत्तर: <span style="color:${isCorrect ? '#3fb950' : '#f85149'}">${userChoiceText}</span></div>
+            <div class="rev-ans">सही उत्तर: <span style="color:#3fb950">${correctChoiceText}</span></div>
+            ${multiBox}
+            ${vviBox}
+        `;
+
+        container.appendChild(card);
+    }
+
+    function toggleReviewSection() {
+        const rev = document.getElementById("review-section");
+        const btn = document.getElementById("btn-review");
+        
+        if (rev.style.display === "block") {
+            rev.style.display = "none";
+            btn.innerText = "🔍 प्रश्न एवं उत्तर समीक्षा (1 Page / 1 Detail)";
+        } else {
+            rev.style.display = "block";
+            btn.innerText = "✖ समीक्षा छुपाएं (Hide Review)";
+            currentReviewIdx = 0;
+            renderSingleReviewCard(currentReviewIdx);
+            rev.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    function nextReviewCard() {
+        if (currentReviewIdx < questions.length - 1) {
+            currentReviewIdx++;
+            renderSingleReviewCard(currentReviewIdx);
+        } else {
+            alert("आप अंतिम प्रश्न की समीक्षा पर हैं।");
+        }
+    }
+
+    function prevReviewCard() {
+        if (currentReviewIdx > 0) {
+            currentReviewIdx--;
+            renderSingleReviewCard(currentReviewIdx);
+        } else {
+            alert("आप पहले प्रश्न की समीक्षा पर हैं।");
+        }
+    }
+
+    function shareTelegram() {
+        const text = encodeURIComponent(document.getElementById("tg-preview").innerText);
+        window.open(`https://t.me/share/url?url=&text=${text}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
